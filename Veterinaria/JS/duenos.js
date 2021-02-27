@@ -1,31 +1,35 @@
-const listaMascotas = document.getElementById('lista-mascotas');
-const tipo = document.getElementById('tipo');
+const listaDuenos = document.getElementById('lista-duenos');
+const tipo = document.getElementById('pais');
 const nombre = document.getElementById('nombre');
-const dueno = document.getElementById('dueno');
+const identificacion = document.getElementById('identificacion');
+const apellido = document.getElementById('apellido');
 const indice =document.getElementById('indice');
 const form = document.getElementById('form');
 const btnguardar = document.getElementById('btn-guardar');
 const modalh5 = document.getElementById('exampleModalLongTitle');
 
-let mascotas =[
+let duenos =[
     {
-        tipo: "Gato",
-        nombre: "manchas",
-        dueno: "Maria"
+        nombre: "Emiliano",
+        apellido: "Soto",
+        pais: "Colombia",
+        identificacion: "1234567890"
     },
     {
-      tipo: "Perro",
-      nombre: "Tom",
-      dueno: "Blanca"
+        nombre: "Laura",
+        apellido: "Fuentes",
+        pais: "Mexico",
+        identificacion: "1234567810"
   }
 ];
 
-function listarMascotas() {
-    let htmlMascotas = mascotas.map((mascota, index)=>` <tr>
+function listarDuenos() {
+    let htmlDuenos = duenos.map((dueno, index)=>` <tr>
     <th scope="row">${index}</th>
-    <td>${mascota.tipo}</td>
-    <td>${mascota.nombre}</td>
-    <td>${mascota.dueno}</td>
+    <td>${dueno.identificacion}</td>
+    <td>${dueno.pais}</td>
+    <td>${dueno.nombre}</td>
+    <td>${dueno.apellido}</td>
     <td>
       <div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
@@ -33,7 +37,7 @@ function listarMascotas() {
       </div>
     </td>
   </tr>`).join("");
-  listaMascotas.innerHTML= htmlMascotas;
+  listaDuenos.innerHTML= htmlDuenos;
   Array.from(document.getElementsByClassName('editar')).forEach((botonEditar,index)=>botonEditar.onclick = editar(index))
   Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar,index)=>botonEliminar.onclick = eliminar(index))
 }
@@ -41,49 +45,52 @@ function listarMascotas() {
 function enviarDatos(evento) {
   evento.preventDefault();
   const datos = {
-    tipo: tipo.value,
-    nombre: nombre.value,
-    dueno: dueno.value
+        nombre: nombre.value,
+        apellido: apellido.value,
+        pais: pais.value,
+        identificacion: identificacion.value
 };
   const accion = btnguardar.innerHTML;
   switch(accion){
     case 'Editar':
-      mascotas[indice.value] = datos;
+      duenos[indice.value] = datos;
      break;
       default:
-        mascotas.push(datos);
+        duenos.push(datos);
       break;
   }
-    listarMascotas();
+  listarDuenos();
     resetModal();
 }
 
 function resetModal(){
-  nombre.value= '';
-    dueno.value= '';
-    tipo.value = '';
-    indice.value= '';
+    indice.value = '';
+    nombre.value = '';
+    apellido.value= '';
+    pais.value= '';
+    identificacion.value = '';
     btnguardar.innerHTML='Crear';
-    modalh5.innerHTML='Guardar';
+    modalh5.innerHTML='Nuevo Dueño';
 }
 
 function eliminar(index){
   return function clicEnEliminar(){
-    mascotas = mascotas.filter((mascota, indiceMascota)=>indiceMascota !== index);
-    listarMascotas();
+    duenos = duenos.filter((dueno, indiceDueno)=>indiceDueno !== index);
+    listarDuenos();
   }
 }
 
 function editar(index){
   return function handler(){
       btnguardar.innerHTML = "Editar"
-      modalh5.innerHTML="Editar Mascota"
+      modalh5.innerHTML="Editar Dueños"
     $('#exampleModalCenter').modal('toggle')
-    const mascota = mascotas[index];
-    nombre.value= mascota.nombre;
-    dueno.value= mascota.dueno;
-    tipo.value = mascota.tipo;
-    indice.value= index;
+    const dueno = duenos[index];
+    indice.value = index;
+    nombre.value = dueno.nombre;
+    apellido.value= dueno.apellido;
+    pais.value= dueno.pais;
+    identificacion.value = dueno.identificacion;
   }
 }
 
@@ -92,7 +99,7 @@ function editar(index){
 
 
 
- listarMascotas();
+listarDuenos();
 
  form.onsubmit = enviarDatos;
  btnguardar.onclick = enviarDatos;

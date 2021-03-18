@@ -7,3 +7,17 @@
 .form-row {
     padding: 10px 0px;
 }
+.lista-vacia{
+    text-align: center;
+}
+.actions-menu-content{
+    display: flex;
+    justify-content: space-between;
+}
+.actions-menu-content > button.btn.bnt-primary{
+    height: 40px;
+}
+
+ .alert{
+    display: none;
+}

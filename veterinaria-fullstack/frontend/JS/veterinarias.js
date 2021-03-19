@@ -7,39 +7,45 @@ const indice =document.getElementById('indice');
 const form = document.getElementById('form');
 const btnguardar = document.getElementById('btn-guardar');
 const modalh5 = document.getElementById('exampleModalLongTitle');
+const url = 'http://localhost:5000/veterinarias';
 
-let veterinarias =[
-    {
-        nombre: "Emiliano",
-        apellido: "Soto",
-        pais: "Colombia",
-        identificacion: "1234567890"
-    },
-    {
-        nombre: "Laura",
-        apellido: "Fuentes",
-        pais: "Mexico",
-        identificacion: "1234567810"
+let veterinarias =[];
+
+async function listarVeterinarias() {
+  try {
+    const respuesta = await fetch(url);
+  const veterinariasDelServer = await respuesta.json();
+  if (Array.isArray(veterinariasDelServer)){
+    veterinarias = veterinariasDelServer;
   }
-];
-
-function listarVeterinarias() {
-    let htmlVeterinarias = veterinarias.map((veterinaria, index)=>` <tr>
+  if(veterinarias.length > 0){
+  const htmlVeterinarias = veterinarias.map((veterinaria, index)=>` <tr>
     <th scope="row">${index}</th>
-    <td>${veterinaria.identificacion}</td>
-    <td>${veterinaria.pais}</td>
+    <td>${veterinaria.documento}</td>
     <td>${veterinaria.nombre}</td>
     <td>${veterinaria.apellido}</td>
     <td>
       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
+          <button type="button" class="btn btn-info editar"><i class="fas fa-edit"></i></button>
+          <button type="button" class="btn btn-danger eliminar"><i class="fas fa-trash-alt"></i></button>
       </div>
     </td>
-  </tr>`).join("");
-  listaVeterinarias.innerHTML= htmlVeterinarias;
-  Array.from(document.getElementsByClassName('editar')).forEach((botonEditar,index)=>botonEditar.onclick = editar(index))
-  Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar,index)=>botonEliminar.onclick = eliminar(index))
+    </tr>`).join("");
+    listaVeterinarias.innerHTML= htmlVeterinarias;
+    Array.from(document.getElementsByClassName('editar')).forEach(
+    (botonEditar,index)=>(botonEditar.onclick = editar(index))
+    );
+    Array.from(document.getElementsByClassName('eliminar')).forEach((botonEliminar,index)=>(botonEliminar.onclick = eliminar(index))
+    );
+    return;
+  }
+  listaVeterinarias.innerHTML= `<tr>
+    <td colspan="5">No hay veterinarias</td>
+  </tr>`;
+  } catch (error) {
+    console.log({error});
+    $(".alert").show();
+  }
 }
 
 function enviarDatos(evento) {

@@ -15,9 +15,10 @@ module.exports = function consultasHandler({
                 });
             }
             const consultasConRelaciones = consultas.map((consulta)=>(
-                {...consulta, mascota: mascotas[consulta.mascota],
-                veterinaria: veterinarias[consulta.veterinaria],
-
+                {...consulta, 
+                mascota: {...mascotas[consulta.mascota], id: consulta.mascota},
+                veterinaria:{...veterinarias[consulta.veterinaria], id: consulta.veterinaria
+                },
             }));
             callback(200, consultasConRelaciones);
         },

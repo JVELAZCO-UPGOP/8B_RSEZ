@@ -7,6 +7,8 @@ const diagnostico = document.getElementById("diagnostico");
 const btnguardar = document.getElementById('btn-guardar');
 const indice = document.getElementById('indice');
 const modalh5 = document.getElementById('exampleModalLongTitle');
+const formulario = document.getElementById("formulario");
+console.log({mascota,veterinaria,historia,diagnostico});
 
 let consulta = [];
 let mascotas = [];
@@ -40,7 +42,8 @@ async function listarConsultas(){
             );
         }
     } catch (error) {
-        throw error; 
+        console.log({error});
+        $(".alert-danger").show();
     }
 }
 
@@ -63,7 +66,8 @@ async function listarMascotas(){
             });
         }
     } catch (error) {
-        throw error; 
+        console.log({error});
+        $(".alert-danger").show(); 
     }
 }
 
@@ -86,7 +90,8 @@ async function listarVeterinarias(){
             });
         }
     } catch (error) {
-        throw error; 
+        console.log({error});
+        $(".alert-danger").show(); 
     }
 }
 
@@ -101,7 +106,73 @@ function editar(index){
       historia.value = consulta.historia;
       diagnostico.value = consulta.diagnostico;
     }
-  }
+}
+async function enviarDatos(evento) {
+    const entidad = "consultas";
+    evento.preventDefault();
+    try {
+      const datos = {
+        mascota: mascota.value,
+        veterinaria: veterinaria.value,
+        historia: historia.value,
+        diagnostico: diagnostico.value,
+      };
+      if (validar(datos) === true){
+        const accion = btnguardar.innerHTML;
+      let urlEnvio = `${url}/${entidad}`;
+      let method = "POST";
+      if(accion == "Editar"){
+        urlEnvio +=  `/${indice.value}`;
+        method = "PUT";
+      }
+      const respuesta = await fetch(urlEnvio, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datos),
+        mode: "cors",
+        });
+        if(respuesta.ok){
+          listarConsultas();
+          resetModal();
+        }
+        formulario.classList.add('was-validate');
+        return;
+        }
+        $(".alert-warning").show();
+    } catch (error) {
+        console.log({error});
+        $(".alert-danger").show();
+    }
+}
 
+function resetModal(){
+    btnguardar.innerHTML='Crear';
+    [indice,mascota,veterinaria,historia,diagnostico].forEach((inputActual) =>{
+        inputActual.value = "";
+        inputActual.classList.remove("is-invalid");
+        inputActual.classList.remove("is-valid");
+    });
+    $(".alert-warning").hide();
+    $('#exampleModalCenter').modal("toggle");
+}
+function validar(datos){
+    if(typeof datos !== 'object') return false;
+    let respuesta = true;
+    for (let llave in datos){
+        if (datos [llave].length === 0){
+            document.getElementById(llave).classList.add("is-invalid");
+            respuesta = false;
+        } else{
+            document.getElementById(llave).classList.remove("is-invalid");
+            document.getElementById(llave).classList.add("is-valid");
+        }
+    }
+    if(respuesta === true) $(".alert-warning").hide();
+    return respuesta;
+}
+
+btnguardar.onclick = enviarDatos;
 listarVeterinarias();
 

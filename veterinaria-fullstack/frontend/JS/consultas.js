@@ -1,5 +1,5 @@
 const listaConsultas = document.getElementById('lista-consultas');
-const url = 'https://veterinaria-backend-lilac.vercel.app';
+const url = 'https://veterinaria-backend-orpin.vercel.app';
 const mascota = document.getElementById("mascota");
 const veterinaria = document.getElementById("veterinaria");
 const hsitoria = document.getElementById("historia");

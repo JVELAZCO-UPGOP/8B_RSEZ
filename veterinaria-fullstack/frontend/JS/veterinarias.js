@@ -6,7 +6,7 @@ const indice =document.getElementById('indice');
 const form = document.getElementById('form');
 const btnguardar = document.getElementById('btn-guardar');
 const modalh5 = document.getElementById('exampleModalLongTitle');
-const url = 'https://veterinaria-backend-lilac.vercel.app/veterinarias';
+const url = 'https://veterinaria-backend-orpin.vercel.app/veterinarias';
 
 let veterinarias =[];
 

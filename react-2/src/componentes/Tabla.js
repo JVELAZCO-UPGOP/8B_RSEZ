@@ -2,8 +2,8 @@ import React from 'react';
 
 function Tabla(){
     return (
-        <table class="table table-hover">
-            <thead class ="thead-dark">
+        <table className="table table-hover">
+            <thead className ="thead-dark">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tipo</th>

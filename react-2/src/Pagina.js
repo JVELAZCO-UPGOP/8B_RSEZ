@@ -1,5 +1,5 @@
 import React from 'react';
-import ActionsMenu from './componentes/actions-menu';
+import ActionsMenu from './componentes/ActionsMenu';
 import Nav from './componentes/Nav';
 import Tabla from "./componentes/Tabla";
 

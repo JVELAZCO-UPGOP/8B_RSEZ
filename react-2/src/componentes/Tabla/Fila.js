@@ -10,7 +10,7 @@ function Fila({index , entidad}){
             <td>{entidad.nombre}</td>
             <td>{entidad.dueno}</td>
             <td>
-                <div class="btn-group" role="group" aria-label="Basic example">
+                <div className="btn-group" role="group" aria-label="Basic example">
                   <BotonAccion tipo ="editar"/>
                   <BotonAccion tipo ="eliminar"/>
                 </div>

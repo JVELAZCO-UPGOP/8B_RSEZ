@@ -24,7 +24,7 @@ const Duenos = [
 ];
 
 
-function Modal({cambiarModal = () => {} }){
+function Modal({cambiarModal = () => {}, manejarInput = () => {} }){
     return (
         <>
         <div className="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -35,15 +35,15 @@ function Modal({cambiarModal = () => {} }){
                     <form id="form">
                         <div className="form-row">
                           <div className="col">
-                            <Select options={tiposMascota} nombreCampo="Tipo animal"/>
+                            <Select options={tiposMascota} onChange={manejarInput} nombreCampo="Tipo animal"/>
                           </div>
                         </div>
                       <div className="form-row">
                         <div className="col">
-                          <Input tipo="text" nombreCampo="nombre"/>
+                          <Input tipo="text" onInput={manejarInput} nombreCampo="nombre"/>
                         </div>
                         <div className="col">
-                          <Select options={Duenos} nombreCampo="dueño"/>
+                          <Select options={Duenos} onChange={manejarInput} nombreCampo="dueño"/>
                         </div>
                       </div>
                     </form>
@@ -52,7 +52,7 @@ function Modal({cambiarModal = () => {} }){
                 </div>
               </div>
         </div>
-        <div class="modal-backdrop fade show"></div>
+        <div className="modal-backdrop fade show"></div>
             </>
     );
 }

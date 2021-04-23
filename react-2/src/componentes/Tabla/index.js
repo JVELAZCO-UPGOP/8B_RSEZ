@@ -4,26 +4,15 @@ import Fila from "./Fila";
 import "./Tabla.css";
 import "./Encabezado.css";
 
-function Tabla(){
-    const [mascotas, setMascotas] = useState([
-      {
-        tipo: "Gato",
-        nombre: "manchas",
-        dueno: "Esteban",
-      },
-      {
-        tipo: "Perro",
-        nombre: "manchas",
-        dueno: "John",
-      },
-    ]);
-    const columnas = mascotas.length > 0 ? Object.keys(mascotas[0]) : []; 
+function Tabla({entidades = [] }){
+    const columnas = entidades.length > 0 ? Object.keys(entidades[0]) : []; 
     return (
-        <table className="table table-hover">
+        <table className="table table-stripped table-hover">
             <Encabezado columnas ={columnas}/>
             <tbody id="lista-mascotas">{
-              mascotas.map((mascota, index)=>
-              <Fila mascota = {mascota} index={index}/>)}
+              entidades.map((entidad, index)=>(
+              <Fila key={`fila-${index}`}index={index} entidad = {entidad} />
+              ))}
             </tbody>
           </table>
     );

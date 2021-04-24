@@ -1,9 +1,9 @@
 import React from "react";
 import "./Input.css";
 
-function Input({tipo ="text", nombreCampo, onInput=()=>{} }){
-    return (<input type={tipo} id={nombreCampo} name = {nombreCampo} 
-    className="form-control" placeholder={nombreCampo} onInput={onInput}/>);
+function Input({tipo ="text", nombreCampo, onInput=()=>{}, placeholder }){
+    return (<input type={tipo} name = {nombreCampo}
+    className="form-control" placeholder={placeholder} onInput={onInput}/>);
 }
 
 

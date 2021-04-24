@@ -26,11 +26,20 @@ class Pagina extends Component{
   };
 
   manejarInput = (evento) =>{
-    const {target} = evento;
-    console.log({target, evento});
+    const {target : {value, name},} = evento;
+    let {objeto} = this.state;
+    objeto = {...objeto, [name] : value};
+    this.setState({objeto});
   };
 
-  crearEntidad (){}
+  crearEntidad = async() =>{
+    const {entidad} = this.props;
+    let {objeto} = this.state;
+    const method ="POST";
+    await crearEditarEntidad({entidad,objeto, method}); 
+    this.cambiarModal();
+    this.listar();
+  };
 
   componentDidMount(){
     this.listar();
@@ -44,7 +53,9 @@ class Pagina extends Component{
         <Nav/>
         <ActionsMenu cambiarModal = {this.cambiarModal} titulo={titulo}/>
         <Tabla entidades ={this.state.entidades} />
-        {this.state.mostrarModal && <Modal cambiarModal = {this.cambiarModal} manejarInput={this.manejarInput}/>}
+        {this.state.mostrarModal && 
+        <Modal cambiarModal = {this.cambiarModal} 
+        manejarInput={this.manejarInput} crearEntidad={this.crearEntidad}/>}
       </div>
       );
   }

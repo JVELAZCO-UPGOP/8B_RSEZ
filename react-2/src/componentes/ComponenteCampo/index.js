@@ -11,39 +11,8 @@ function ComponenteCampo({
   nombreCampo = "",
   options = {},
 }) {
-  /*const [options, setOptions] = useState(opcionesIniciales);
-
-  useEffect(() => {
-    const obtenerOptionsBackend = async () => {
-      const mascotasPromise = listarEntidad({ entidad: "mascotas" });
-      const veterinariasPromise = listarEntidad({ entidad: "veterinarias" });
-      const duenosPromise = listarEntidad({ entidad: "duenos" });
-      let [mascota, veterinaria, dueno] = await Promise.all([
-        mascotasPromise,
-        veterinariasPromise,
-        duenosPromise,
-      ]);
-      console.log("uno", { mascota, veterinaria, dueno });
-      mascota = mascota.map((_mascota, index) => ({
-        valor: index,
-        etiqueta: `${_mascota.nombre} (${_mascota.tipo})`,
-      }));
-      veterinaria = veterinaria.map((_veterinaria, index) => ({
-        valor: index,
-        etiqueta: `${_veterinaria.nombre} ${_veterinaria.apellido}`,
-      }));
-      dueno = dueno.map((_dueno, index) => ({
-        valor: index,
-        etiqueta: `${_dueno.nombre} ${_dueno.apellido}`,
-      }));
-
-      const nuevasOpciones = { ...options, mascota, veterinaria, dueno };
-      setOptions(nuevasOpciones);
-    };
-
-    obtenerOptionsBackend();
-  }, []);*/
-
+  
+  console.log(options);
   switch (nombreCampo) {
     case "tipo":
     case "mascota":

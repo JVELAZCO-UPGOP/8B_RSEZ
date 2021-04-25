@@ -40,11 +40,14 @@ class Pagina extends Component {
   }
 
   cambiarModal = (_evento, method = "POST", newState = {}) => {
-    const _newState = {
+    let _newState = {
+      ...newState,
       mostraModal: !this.state.mostraModal,
       method,
-      ...newState,
     };
+    if(method === "POST"){
+      _newState = {..._newState,idObjeto : null, objeto: {} }
+    }
     this.obtenerOpcionesBackend(_newState);
   };
 
@@ -66,11 +69,11 @@ class Pagina extends Component {
     this.setState({ objeto });
   };
 
-  crearEntidad = async () => {
+  crearEntidad = async (_evento = null) => {
     const { entidad } = this.props;
     let { objeto, method, idObjeto } = this.state;
     await crearEditarEntidad({ entidad, objeto, method, idObjeto });
-    this.cambiarModal();
+    this.cambiarModal(_evento, "POST", {objeto: {}, idObjeto:null });
     this.listar();
   };
 
@@ -97,8 +100,9 @@ class Pagina extends Component {
       etiqueta: `${_dueno.nombre} ${_dueno.apellido}`,
     }));
     const nuevasOpciones = { ...options, mascota, veterinaria, dueno };
-    console.log({ nuevasOpciones });
-    this.setState({ ...newState, options: nuevasOpciones });
+    this.setState({ ...newState, options: nuevasOpciones }, () => {
+      this.listar();
+    });
   };
 
   editarEntidad = async (_evento, index) => {

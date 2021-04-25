@@ -1,27 +1,7 @@
 import React from "react";
 import ModalHeader from "./ModalHeader";
 import ModalFooter from "./ModalFooter";
-import Select from "../Select";
-import Input from "../Input";
 import "./Modal.css";
-
-const tiposMascota = [
-  {valor:  "Perro", etiqueta: "Perro"}, 
-  {valor:  "Gato ", etiqueta: "Gato"},
-  {valor:  "Pajaro", etiqueta: "Pajaro"},
-  {valor:  "Conejo", etiqueta: "Conejo"}, 
-  {valor:  "Otro", etiqueta: "Otro"},
-];
-
-const Duenos = [
-  {valor:  "Maria", etiqueta: "Maria"}, 
-  {valor:  "Ester ", etiqueta: "Ester"},
-  {valor:  "Julian", etiqueta: "Julian"},
-  {valor:  "Mauricio", etiqueta: "Mauricio"},
-  {valor:  "Blanca", etiqueta: "Blanca"},
-  {valor:  "Camilo", etiqueta: "Camilo"}, 
-  {valor:  "Otro", etiqueta: "Otro"},
-];
 
 
 function Modal({

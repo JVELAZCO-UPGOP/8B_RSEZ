@@ -143,7 +143,7 @@ class Pagina extends Component {
               <ComponenteCampo
                 key={index}
                 manejarInput={this.manejarInput}
-                objeto={objeto}
+                objeto={objeto} 
                 nombreCampo={columna}
                 options={options}
               />

@@ -1,4 +1,6 @@
-const API_URL = "https://veterinaria-backend-orpin.vercel.app";
+//const API_URL = "https://veterinaria-backend-orpin.vercel.app";
+const API_URL = "http://localhost:5000";
+
  
  
 export const listarEntidad = async ({entidad = "mascotas"}) => {

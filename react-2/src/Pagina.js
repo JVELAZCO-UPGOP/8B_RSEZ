@@ -1,9 +1,22 @@
 import React, { Component } from "react";
-
 import ActionsMenu from "./componentes/ActionsMenu";
 import Tabla from "./componentes/Tabla";
 import Modal from "./componentes/Modal";
+import Input from "./componentes/Input";
+import Select from "./componentes/Select";
 import { listarEntidad, crearEditarEntidad, eliminarEntidad} from "./servicio";
+
+const ComponentCampo = {
+  tipo: Select,
+  nombre: Input,
+  dueno: Input,
+  apellido: Input,
+  documento: Input,
+  mascota: Select,
+  veterinaria: Select,
+  diagnostico: Select,
+  historia: Input,
+};
 
 class Pagina extends Component {
   constructor(props) {
@@ -14,6 +27,7 @@ class Pagina extends Component {
       objeto: {},
       idObjeto: null,
       method: "POST",
+      columnas: [],
     };
   }
 
@@ -24,7 +38,11 @@ class Pagina extends Component {
   listar = async () => {
     const { entidad } = this.props;
     const entidades = await listarEntidad({ entidad });
-    this.setState({ entidades });
+    let columnas = [];
+    if (Array.isArray(entidades) && entidades.length > 0) {
+      columnas = Object.keys(entidades[0]) || [];
+    }
+    this.setState({ entidades, columnas });
   };
   manejarInput = (evento) => {
     const {
@@ -62,6 +80,8 @@ class Pagina extends Component {
   }
   render() {
     const { titulo = "Página sin título" } = this.props;
+    const { columnas } = this.state;
+    console.log({ titulo, columnas });
     return (
       <>
         <ActionsMenu cambiarModal={this.cambiarModal} titulo={titulo} />
@@ -69,6 +89,7 @@ class Pagina extends Component {
           entidades={this.state.entidades}
           editarEntidad={this.editarEntidad}
           eliminarEntidad={this.eliminarEntidad}
+          columnas={columnas}
         />
         {this.state.mostraModal && (
           <Modal
@@ -76,7 +97,12 @@ class Pagina extends Component {
             manejarInput={this.manejarInput}
             crearEntidad={this.crearEntidad}
             objeto={this.state.objeto}
-          />
+          >
+            {columnas.map((columna, index) => {
+              const Componente = ComponentCampo[columna];
+              return <Componente nombreCampo={columna} />;
+            })}
+          </Modal>
         )}
       </>
     );

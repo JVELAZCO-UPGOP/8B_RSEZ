@@ -2,10 +2,15 @@ import React, {useState} from 'react';
 import Encabezado from "./Encabezado";
 import Fila from "./Fila";
 import "./Tabla.css";
-import "./Encabezado.css";
 
-function Tabla({entidades = [], editarEntidad=()=>{}, eliminarEntidad = () => {}, }){
-    const columnas = entidades.length > 0 ? Object.keys(entidades[0]) : []; 
+
+function Tabla({
+  entidades = [],
+  editarEntidad = () => {},
+  eliminarEntidad = () => {},
+  columnas = [],
+}){
+     
     return (
         <table className="table table-stripped table-hover">
             <Encabezado columnas ={columnas}/>

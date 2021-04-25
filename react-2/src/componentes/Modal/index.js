@@ -29,6 +29,7 @@ function Modal({
     manejarInput = () => {}, 
     crearEntidad = () => {},
     objeto = {},
+    children = [],
     }){
     return (
         <>
@@ -38,19 +39,7 @@ function Modal({
                   <ModalHeader cambiarModal = {cambiarModal}/>
                   <div className="modal-body">
                     <form id="form">
-                        <div className="form-row">
-                          <div className="col">
-                            <Select nombreCampo = "tipo" options={tiposMascota} onChange={manejarInput} placeholder="Tipo Animal" value={objeto.tipo} />
-                          </div>
-                        </div>
-                      <div className="form-row">
-                        <div className="col">
-                          <Input nombreCampo = "nombre" tipo="text" onInput={manejarInput} placeholder="Nombre" value={objeto.nombre} />
-                        </div>
-                        <div className="col">
-                          <Select options={Duenos} onChange={manejarInput} nombreCampo="dueno" placeholder="Dueño" value={objeto.dueno} />
-                        </div>
-                      </div>
+                    <div className="form-row">{children}</div>
                     </form>
                   </div>
                   <ModalFooter cambiarModal = {cambiarModal} crearEntidad={crearEntidad}/>

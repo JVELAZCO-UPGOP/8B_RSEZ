@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input";
 import Select from "../Select";
-import { listarEntidad } from "../../servicio";
 
-const opcionesIniciales = {
-  tipo: [
-    { valor: "Perro", etiqueta: "Perro" },
-    { valor: "Gato", etiqueta: "Gato" },
-    { valor: "Pájaro", etiqueta: "Pájaro" },
-    { valor: "Otro", etiqueta: "Otro" },
-  ],
-  diagnostico: [
-    { valor: "Prurito de piel (sarna)", etiqueta: "Prurito de piel (sarna)" },
-    { valor: "Moquillo", etiqueta: "Moquillo" },
-    { valor: "Trauma cefálico", etiqueta: "Trauma cefálico" },
-    { valor: "Parvovirosis", etiqueta: "Parvovirosis" },
-  ],
-};
+
+
 
 function ComponenteCampo({
   manejarInput = () => {},
   objeto = {},
   nombreCampo = "",
+  options = {},
 }) {
-  const [options, setOptions] = useState(opcionesIniciales);
+  /*const [options, setOptions] = useState(opcionesIniciales);
 
   useEffect(() => {
     const obtenerOptionsBackend = async () => {
@@ -54,7 +42,7 @@ function ComponenteCampo({
     };
 
     obtenerOptionsBackend();
-  }, []);
+  }, []);*/
 
   switch (nombreCampo) {
     case "tipo":
@@ -64,13 +52,19 @@ function ComponenteCampo({
     case "dueno":
       return (
         <div className="col">
-          <Select
-            nombreCampo={nombreCampo}
-            options={options[nombreCampo]}
-            onChange={manejarInput}
-            placeholder={nombreCampo}
-            value={objeto[nombreCampo]}
-          />
+          {options[nombreCampo].length > 0 ? (
+            <Select
+              nombreCampo={nombreCampo}
+              options={options[nombreCampo]}
+              onChange={manejarInput}
+              placeholder={nombreCampo}
+              defaultValue={objeto[nombreCampo]} 
+              selectedValue={objeto[nombreCampo]} 
+              value={objeto[nombreCampo]} 
+            />
+          ) : (
+            "cargando opciones..."
+          )}
         </div>
       );
 

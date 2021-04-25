@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; 
 import ModalHeader from "./ModalHeader";
 import ModalFooter from "./ModalFooter";
 import "./Modal.css";
@@ -6,10 +6,10 @@ import "./Modal.css";
 
 function Modal({
     cambiarModal = () => {}, 
-    manejarInput = () => {}, 
     crearEntidad = () => {},
-    objeto = {},
     children = [],
+    idObjeto = null,
+    entidad = null,
     }){
     return (
         <>

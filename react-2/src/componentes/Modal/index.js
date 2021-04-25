@@ -24,9 +24,12 @@ const Duenos = [
 ];
 
 
-function Modal({cambiarModal = () => {}, 
+function Modal({
+    cambiarModal = () => {}, 
     manejarInput = () => {}, 
-    crearEntidad = () => {} }){
+    crearEntidad = () => {},
+    objeto = {},
+    }){
     return (
         <>
         <div className="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -37,15 +40,15 @@ function Modal({cambiarModal = () => {},
                     <form id="form">
                         <div className="form-row">
                           <div className="col">
-                            <Select nombreCampo = "tipo" options={tiposMascota} onChange={manejarInput} placeholder="Tipo Animal"/>
+                            <Select nombreCampo = "tipo" options={tiposMascota} onChange={manejarInput} placeholder="Tipo Animal" value={objeto.tipo} />
                           </div>
                         </div>
                       <div className="form-row">
                         <div className="col">
-                          <Input nombreCampo = "nombre" tipo="text" onInput={manejarInput} placeholder="Nombre"/>
+                          <Input nombreCampo = "nombre" tipo="text" onInput={manejarInput} placeholder="Nombre" value={objeto.nombre} />
                         </div>
                         <div className="col">
-                          <Select options={Duenos} onChange={manejarInput} nombreCampo="dueno" placeholder="Dueño"/>
+                          <Select options={Duenos} onChange={manejarInput} nombreCampo="dueno" placeholder="Dueño" value={objeto.dueno} />
                         </div>
                       </div>
                     </form>

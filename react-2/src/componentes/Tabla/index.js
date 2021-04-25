@@ -4,7 +4,7 @@ import Fila from "./Fila";
 import "./Tabla.css";
 import "./Encabezado.css";
 
-function Tabla({entidades = [], editarEntidad=()=>{} }){
+function Tabla({entidades = [], editarEntidad=()=>{}, eliminarEntidad = () => {}, }){
     const columnas = entidades.length > 0 ? Object.keys(entidades[0]) : []; 
     return (
         <table className="table table-stripped table-hover">
@@ -12,7 +12,7 @@ function Tabla({entidades = [], editarEntidad=()=>{} }){
             <tbody id="lista-mascotas">{
               entidades.map((entidad, index)=>(
               <Fila key={`fila-${index}`}index={index} entidad = {entidad} 
-              editarEntidad={editarEntidad} />
+              editarEntidad={editarEntidad} eliminarEntidad={eliminarEntidad} />
               ))}
             </tbody>
           </table>

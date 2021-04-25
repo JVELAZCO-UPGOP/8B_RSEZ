@@ -3,7 +3,8 @@ import Nav from "./componentes/Nav";
 import ActionsMenu from "./componentes/ActionsMenu";
 import Tabla from "./componentes/Tabla";
 import Modal from "./componentes/Modal";
-import { listarEntidad, crearEditarEntidad } from "./servicio";
+import { listarEntidad, crearEditarEntidad, eliminarEntidad} from "./servicio";
+
 class Pagina extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +50,16 @@ class Pagina extends Component {
     });
   };
 
+  eliminarEntidad = async (_evento, index) => {
+    const { entidad } = this.props;
+    const respuesta = await eliminarEntidad({ entidad, idObjeto: index });
+    console.log({ respuesta });
+    this.listar();
+  };
+
   componentDidMount() {
     this.listar();
   }
-  // codigo del componente
-  // el método render siempre debe ir de último
   render() {
     const { titulo = "Página sin título" } = this.props;
     return (
@@ -64,6 +70,7 @@ class Pagina extends Component {
           <Tabla
             entidades={this.state.entidades}
             editarEntidad={this.editarEntidad}
+            eliminarEntidad={this.eliminarEntidad}
           />
           {this.state.mostraModal && (
             <Modal

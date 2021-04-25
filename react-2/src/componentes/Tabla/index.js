@@ -11,8 +11,11 @@ function Tabla({entidades = [], editarEntidad=()=>{}, eliminarEntidad = () => {}
             <Encabezado columnas ={columnas}/>
             <tbody id="lista-mascotas">{
               entidades.map((entidad, index)=>(
-              <Fila key={`fila-${index}`}index={index} entidad = {entidad} 
-              editarEntidad={editarEntidad} eliminarEntidad={eliminarEntidad} />
+              <Fila key={`fila-${index}`}
+              index={index} 
+              entidad = {entidad} 
+              editarEntidad={editarEntidad} 
+              eliminarEntidad={eliminarEntidad} columnas={columnas} />
               ))}
             </tbody>
           </table>

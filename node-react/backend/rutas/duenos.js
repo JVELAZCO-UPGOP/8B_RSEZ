@@ -1,3 +1,5 @@
+const { palabraSinAcentos } = require("../util");
+
 module.exports = function duenosHandler(duenos) {
     return {
         get: (data, callback) => {
@@ -13,21 +15,30 @@ module.exports = function duenosHandler(duenos) {
             }// aca se empieza a trabajar 
             if (
                 data.query &&
-                (typeof data.query.nombre !== "undefined" ||
-                  data.query.apellido !== "undefined" ||
-                  data.query.documento !== "undefined")
+                (data.query.nombre  ||
+                  data.query.apellido  ||
+                  data.query.documento )
               ) {
-                const llavesQuery = Object.keys(data.query);
-        
-                let respuestaDuenos = [...duenos];
-        
-                for (const llave of llavesQuery) {
-                  respuestaDuenos = respuestaDuenos.filter((_dueno) => {
-                    const expresionRegular = new RegExp(data.query[llave], "ig");
-                    const resultado = _dueno[llave].match(expresionRegular);
+                const llavesQuery = Object.keys(data.query);//aqui
+                let respuestaDuenos = [...duenos];//aqui
+                  respuestaDuenos = respuestaDuenos.filter((_dueno) => {//se empieza
+                    let resultado = false;
+                    for (const llave of llavesQuery) {
+                        if (_dueno && _dueno[llave]){
+                            const busqueda = palabraSinAcentos(data.query[llave]);
+                            const expresionRegular = new RegExp( busqueda,"ig")
+                            
+                            const campoDuenoSinAcentos = palabraSinAcentos(_dueno[llave]);
+                            resultado = campoDuenoSinAcentos.match(expresionRegular);
+                        }
+                        if (resultado){
+                            break;
+                        }
+                    }
                     return resultado;
-                  });
-                }
+                  }
+                );
+                
                 return callback(200, respuestaDuenos);
               }
             callback(200, duenos);

@@ -3,9 +3,13 @@ const API_URL = "http://localhost:5000";
 
  
  
-export const listarEntidad = async ({entidad = "mascotas"}) => {
+export const listarEntidad = async ({entidad = "mascotas", search=""}) => {
      try {
-         const respuesta = await fetch(`${API_URL}/${entidad}`);
+       let url = `${API_URL}/${entidad}`;
+       if(search.length > 0){
+          url += `?nombre=${search}&tipo=${search}&dueno=${search}`;
+       }
+         const respuesta = await fetch(url);
          const datos = await respuesta.json();
          return datos;
      } catch (error) {

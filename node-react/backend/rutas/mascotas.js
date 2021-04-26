@@ -12,19 +12,24 @@ module.exports = function mascotasHandler(mascotas) {
             }
             if (
                 data.query &&
-                (typeof data.query.nombre !== "undefined" ||
-                  data.query.tipo !== "undefined" ||
-                  data.query.dueno !== "undefined")
+                (data.query.nombre || data.query.tipo || data.query.dueno)
               ) {
                 const llavesQuery = Object.keys(data.query);
                 let respuestaMascotas = [...mascotas];
-                for (const llave of llavesQuery) {
+                
                   respuestaMascotas = respuestaMascotas.filter((_mascota) => {
-                    const expresionRegular = new RegExp(data.query[llave], "ig");
-                    const resultado = _mascota[llave].match(expresionRegular);
+                      let resultado= false; 
+                    for (const llave of llavesQuery){
+                        const expresionRegular = new RegExp(data.query[llave], "ig");
+                        resultado = _mascota[llave].match(expresionRegular);
+                        if (resultado){
+                            break;
+                        }
+                    }
+                    
                     return resultado;
                   });
-                }
+                
                 return callback(200, respuestaMascotas);
               }
             callback(200, mascotas);

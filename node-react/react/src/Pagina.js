@@ -36,6 +36,7 @@ class Pagina extends Component {
       method: "POST",
       columnas: [],
       options: opcionesIniciales,
+      search: "",
     };
   }
 
@@ -51,15 +52,20 @@ class Pagina extends Component {
     this.obtenerOpcionesBackend(_newState);
   };
 
-  listar = async () => {
+  listar = async (_evento = null) => {
+    if (_evento){
+      _evento.preventDefault();
+    }
     const { entidad } = this.props;
-    const entidades = await listarEntidad({ entidad });
+    const { search } = this.state;
+    const entidades = await listarEntidad({ entidad, search });
     let columnas = [];
     if (Array.isArray(entidades) && entidades.length > 0) {
       columnas = Object.keys(entidades[0]) || [];
     }
     this.setState({ entidades, columnas });
   };
+
   manejarInput = (evento) => {
     const {
       target: { value, name },
@@ -119,6 +125,15 @@ class Pagina extends Component {
     this.listar();
   };
 
+  manejarsearchInput = (evento) => {
+    const {
+      target: { value },
+    } = evento;
+    let { search } = this.state;
+    search = value ;
+    this.setState({ search });
+  };
+
   componentDidMount() {
     this.listar();
   }
@@ -128,7 +143,7 @@ class Pagina extends Component {
     console.log({ titulo, columnas });
     return (
       <>
-        <ActionsMenu cambiarModal={this.cambiarModal} titulo={titulo} />
+        <ActionsMenu cambiarModal={this.cambiarModal} titulo={titulo} manejarsearchInput={this.manejarsearchInput} buscar={this.listar} />
         <Tabla
           entidades={entidades}
           editarEntidad={this.editarEntidad}

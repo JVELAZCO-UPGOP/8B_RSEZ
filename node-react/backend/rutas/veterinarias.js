@@ -1,3 +1,5 @@
+const { palabraSinAcentos } = require("../util");
+
 module.exports = function veterinariasHandler(veterinarias) {
     return {
         get: (data, callback) => {
@@ -15,36 +17,47 @@ module.exports = function veterinariasHandler(veterinarias) {
       //que el request es una búsqueda
       if (
         data.query &&
-        (typeof data.query.nombre !== "undefined" ||
-          data.query.apellido !== "undefined" ||
-          data.query.documento !== "undefined")
+        (data.query.nombre  || data.query.apellido || data.query.documento )
       ) {
         // creo un array con las llavees del objeto data query
-        const llavesQuery = Object.keys(data.query);
+        const llavesQuery = Object.keys(data.query); //hi
 
         //clono el array de veterinarias que viene de recursos
         // y este irá guardando los resultados
-        let respuestaVeterinarias = [...veterinarias];
+        let respuestaVeterinarias = [...veterinarias];//hi
 
         //recorro cada una de las llaves con el fin de filtrar el array de veterinarias
         //según los criterios de búsqueda
-        for (const llave of llavesQuery) {
+       
           // filtro el array de respuestas con el index solamente
           // dejar los objetos de veterinaria que cumplen con los criterios de
           // búsqueda
-          respuestaVeterinarias = respuestaVeterinarias.filter(
-            (_veterinaria) => {
+          respuestaVeterinarias = respuestaVeterinarias.filter((_veterinaria) => {
+            let resultado= false;
+            for (const llave of llavesQuery) {
+                
+                if (_veterinaria && _veterinaria[llave]) {
+                    const busqueda = palabraSinAcentos(data.query[llave]);
+                    const expresionRegular = new RegExp(busqueda, "ig");
+
+                    const campoVeterinariaSinAcentos = palabraSinAcentos(_veterinaria[llave]);
+                    resultado = campoVeterinariaSinAcentos.match(expresionRegular);
+                }
+                if (resultado){
+                    break;
+                }
+            }
               // creo una expresión regular para que
               //la busqueda arroje resultados parciales
               //de lo que se manda como criterio de búsqueda
               // ejemplo si nombre = 'cat' en el query me devuelve todas las
               //veterinarias con nombre = 'catalina'
-              const expresionRegular = new RegExp(data.query[llave], "ig");
+              
 
               // resultado guarda la verificación del string del criterio de búsqueda
               // y los objetos de veterinaria, es decir nos dice si el criterio de búsqueda
               // está o no en el objeto de veterinaria que estamos evaluando en el momento
-              const resultado = _veterinaria[llave].match(expresionRegular);
+              
 
               // resultado entrega null cuando no encuentra el criterio de búsqueda
               // null es falsy por lo tanto el filter ignorará resultado === null
@@ -52,7 +65,7 @@ module.exports = function veterinariasHandler(veterinarias) {
               return resultado;
             }
           );
-        }
+        
         return callback(200, respuestaVeterinarias);
       }
             callback(200, veterinarias);

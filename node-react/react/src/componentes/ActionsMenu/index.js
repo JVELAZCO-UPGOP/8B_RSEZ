@@ -1,5 +1,6 @@
 import React from 'react';
 import "./ActionsMenu.css";
+import Search from "../Search";
 
 
 function ActionsMenu({cambiarModal = () =>{}, titulo}){
@@ -9,6 +10,7 @@ function ActionsMenu({cambiarModal = () =>{}, titulo}){
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick={cambiarModal}>
             Nueva
         </button>
+        <Search/>
     </div>
 </div>);
 }

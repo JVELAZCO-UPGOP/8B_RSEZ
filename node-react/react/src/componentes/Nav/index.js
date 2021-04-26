@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import "./Nav.css"
-import Search from "../Search";
+
 
 function Nav() {
   return (<nav className="navbar navbar-dark bg-dark navbar-expand-lg">
@@ -31,7 +31,6 @@ function Nav() {
             </Link>
           </li>
       </ul>
-      <Search/>
   </div>  
 </nav>)
 }

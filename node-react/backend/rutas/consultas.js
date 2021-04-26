@@ -5,8 +5,9 @@ module.exports = function consultasHandler({
 }) {
     return {
         get: (data, callback) => {
+            console.log("handler veterinarias ", {data});
             if(typeof data.indice !=="undefined"){
-                console.log("handler consultas ", {data});
+                
                 if(consultas[data.indice]){
                     return callback(200,consultas[data.indice]);
                 }
@@ -14,13 +15,37 @@ module.exports = function consultasHandler({
                     {mensaje: `consulta con indice ${data.indice} no encontrada`,
                 });
             }
-            const consultasConRelaciones = consultas.map((consulta)=>(
-                {...consulta, 
+            let _consultas = [...consultas];
+
+      if (
+        data.query &&
+        (typeof data.query.mascota !== "undefined" ||
+          data.query.veterinaria !== "undefined" ||
+          data.query.historia !== "undefined" ||
+          data.query.diagnostico !== "undefined")
+      ) {
+        const llavesQuery = Object.keys(data.query);
+        for (const llave of llavesQuery) {
+          _consultas = _consultas.filter((_consulta) => {
+            let resultado = false;
+            if (llave === "diagnostico" || llave === "historia") {
+              const expresionRegular = new RegExp(data.query[llave], "ig");
+              resultado = _consulta[llave].match(expresionRegular);
+            }
+            if (llave === "veterinaria" || llave === "mascota") {
+              resultado = _consulta[llave] == data.query[llave];
+            }
+            return resultado;
+          });
+        }
+      }
+      _consultas = _consultas.map((consulta) => ({
+            ...consulta, 
                 mascota: {...mascotas[consulta.mascota], id: consulta.mascota},
                 veterinaria:{...veterinarias[consulta.veterinaria], id: consulta.veterinaria
                 },
             }));
-            callback(200, consultasConRelaciones);
+            callback(200, _consultas);
         },
         post: (data, callback) => {
             let nuevaConsulta = data.payload;

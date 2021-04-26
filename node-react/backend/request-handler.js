@@ -69,8 +69,6 @@ module.exports = (req, res) => {
             payload: buffer
         };
 
-        console.log({data});
-
         
 
         //3.6 elegir el manejador dependiendo de la ruta  y asignarle la funcion que el enrutador tiene//handler

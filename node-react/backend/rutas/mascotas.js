@@ -1,8 +1,8 @@
 module.exports = function mascotasHandler(mascotas) {
     return {
         get: (data, callback) => {
+            
             if(typeof data.indice !=="undefined"){
-                console.log("handler mascotas ", {data});
                 if(mascotas[data.indice]){
                     return callback(200,mascotas[data.indice]);
                 }
@@ -10,6 +10,23 @@ module.exports = function mascotasHandler(mascotas) {
                     {mensaje: `mascota con indice ${data.indice} no encontrada`,
                 });
             }
+            if (
+                data.query &&
+                (typeof data.query.nombre !== "undefined" ||
+                  data.query.tipo !== "undefined" ||
+                  data.query.dueno !== "undefined")
+              ) {
+                const llavesQuery = Object.keys(data.query);
+                let respuestaMascotas = [...mascotas];
+                for (const llave of llavesQuery) {
+                  respuestaMascotas = respuestaMascotas.filter((_mascota) => {
+                    const expresionRegular = new RegExp(data.query[llave], "ig");
+                    const resultado = _mascota[llave].match(expresionRegular);
+                    return resultado;
+                  });
+                }
+                return callback(200, respuestaMascotas);
+              }
             callback(200, mascotas);
         },
         post: (data, callback) => {

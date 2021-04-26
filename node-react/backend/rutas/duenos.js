@@ -1,15 +1,35 @@
 module.exports = function duenosHandler(duenos) {
     return {
         get: (data, callback) => {
+            console.log("handler veterinarias ", {data});
             if(typeof data.indice !=="undefined"){
-                console.log("handler duenos ", {data});
+                
                 if(duenos[data.indice]){
                     return callback(200,duenos[data.indice]);
                 }
                 return callback(404,
                     {mensaje: `dueño con indice ${data.indice} no encontrada`,
                 });
-            }
+            }// aca se empieza a trabajar 
+            if (
+                data.query &&
+                (typeof data.query.nombre !== "undefined" ||
+                  data.query.apellido !== "undefined" ||
+                  data.query.documento !== "undefined")
+              ) {
+                const llavesQuery = Object.keys(data.query);
+        
+                let respuestaDuenos = [...duenos];
+        
+                for (const llave of llavesQuery) {
+                  respuestaDuenos = respuestaDuenos.filter((_dueno) => {
+                    const expresionRegular = new RegExp(data.query[llave], "ig");
+                    const resultado = _dueno[llave].match(expresionRegular);
+                    return resultado;
+                  });
+                }
+                return callback(200, respuestaDuenos);
+              }
             callback(200, duenos);
         },
         post: (data, callback) => {

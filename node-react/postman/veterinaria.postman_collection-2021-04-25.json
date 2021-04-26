@@ -1,0 +1,585 @@
+{
+	"info": {
+		"_postman_id": "3681fadb-7e42-4510-ac38-a8fa0fe1d479",
+		"name": "veterinaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "mascotas",
+			"item": [
+				{
+					"name": "Crear mascotas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"gato\",\r\n    \"nombre\": \"Cruella\",\r\n    \"dueno\": \"Juan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/mascotas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mascotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar mascota",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"perro\",\r\n    \"nombre\": \"Firulais Montoya\",\r\n    \"dueno\": \"Camilo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/mascotas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mascotas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar mascotas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/mascotas?tipo=gat&nombre=Crue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mascotas"
+							],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "gat"
+								},
+								{
+									"key": "nombre",
+									"value": "Crue"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una sola mascota",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/mascotas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mascotas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar una sola mascota",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/mascotas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mascotas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "veterinarias",
+			"item": [
+				{
+					"name": "Crear veterinaria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan David\",\r\n    \"apellido\": \"Morin\",\r\n    \"documento\": \"666622228883\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/veterinarias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"veterinarias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar veterinaria",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan David\",\r\n    \"apellido\": \"Morin\",\r\n    \"documento\": \"666622220083\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/veterinarias/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"veterinarias",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar veterinarias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/veterinarias?nombre=alex&apellido=Pe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"veterinarias"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "alex"
+								},
+								{
+									"key": "apellido",
+									"value": "Pe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una sola veterinaria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/veterinarias/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"veterinarias",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar una sola veterinaria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/veterinarias/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"veterinarias",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dueños",
+			"item": [
+				{
+					"name": "Crear dueños",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Duvan Felipe\",\r\n    \"apellido\": \"Soto\",\r\n    \"documento\": \"12345333300\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/duenos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"duenos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar dueños",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Duvan F.\",\r\n    \"apellido\": \"Soto\",\r\n    \"documento\": \"12345333300\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/duenos/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"duenos",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar dueños",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/duenos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"duenos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un solo dueño",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/duenos/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"duenos",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un solo dueños",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/duenos/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"duenos",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultas",
+			"item": [
+				{
+					"name": "Crear consulta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mascota\": 4,\r\n    \"veterinaria\": 4,\r\n    \"hostoria\": \"historia 4\",\r\n    \"diagnostico\": \"dx 4\",\r\n    \"fechaCreacion\" : \"2020-01-01T04:24:58.591Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar consulta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mascota\": 1,\r\n    \"veterinaria\": 1,\r\n    \"encabezados\": \"encabezado\",\r\n    \"hostoria\": \"la mascota tiene un vidrio insertado en la pata izquierda inferior\",\r\n    \"diagnostico\": \"contusion\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/consultas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consultas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar consultas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una  sola consulta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/consultas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consultas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar una sola consulta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/consultas/:indice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consultas",
+								":indice"
+							],
+							"variable": [
+								{
+									"key": "indice",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
